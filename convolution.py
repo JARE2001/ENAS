@@ -37,24 +37,13 @@ def addpadding(padding,imagen):
             imagenPadding[ren,col] = imagen[ren - padding,col - padding]
     return imagenPadding
 
-imgx= random.randint(4,6)
-imgy=random.randint(4,6)
-
-imagen =np.random.randint(10,size =(imgx,imgy))
-
-
-# imagen = np.array( [[1, 2, 3, 4, 5, 6],
-#                     [7, 8, 9, 10, 11, 12],
-#                     [0, 0, 1, 16, 17, 18],
-#                     [0, 1, 0, 7, 23, 24],
-#                     [1, 7, 6, 5, 4, 3] ])
 
 filtro = np.random.randint(10,size =(3,3))
 
-"""if __name__ == '__main__':
+if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument("-i", "--image", required=True, help="Path to the image")
     args = vars(ap.parse_args())
-    image = cv2.imread(args["image"])"""
+    image = cv2.imread(args["image"])
 
-print(total_conv(2,imagen,filtro))
+print(total_conv(2,image,filtro))
