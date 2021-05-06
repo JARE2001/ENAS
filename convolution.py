@@ -16,6 +16,7 @@ def total_conv(imagen,filtro,verbose=False):
         for j in range(y):
             res[i][j] = np.sum(filtro * imagen[i: i+len(filtro), j: j+len(filtro[0])])
     plt.imshow(res, cmap='gray')
+    plt.title("Output Laplacian Convolution")
     plt.show()
 
     return res
@@ -27,7 +28,6 @@ def addpadding(imagen, kernel, verbose=False):
         print("Converted to Gray Channel. Size : {}".format(imagen.shape))
     else:
         print("Image Shape : {}".format(imagen.shape))
-
 
     x_kernel, y_kernel = kernel.shape
 
@@ -42,12 +42,16 @@ def addpadding(imagen, kernel, verbose=False):
     for ren in range(pad_x, len(imagenPadding)-pad_x):
         for col in range(pad_y, len(imagenPadding[0])-pad_y):
             imagenPadding[ren,col] = imagen[ren - pad_x,col - pad_y]
-            
+
+    if verbose:
+        plt.imshow(imagenPadding, cmap='gray')
+        plt.title("Padded Image")
+        plt.show()
+
     return imagenPadding
 
 
-
-filtro = np.random.randint(10,size =(3,3))
+filtro_laplacian = np.array([[0,-1,0],[-1,4,-1],[0,-1,0]])
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
@@ -55,4 +59,4 @@ if __name__ == '__main__':
     args = vars(ap.parse_args())
     image = cv2.imread(args["image"])
 
-print(total_conv(image,filtro,verbose=True))
+print(total_conv(image,filtro_laplacian,verbose=True))
