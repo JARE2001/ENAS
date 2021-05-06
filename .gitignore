@@ -3,3 +3,6 @@
 
 # Ada Library Information
 *.ali
+
+# Folder view configuration files
+.DS_Store
