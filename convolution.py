@@ -5,6 +5,8 @@ import random
 import cv2
 import argparse
 
+
+
 def total_conv(imagen,filtro,nombre,verbose=False):
     imagen = addpadding(imagen,filtro,verbose)
     print(imagen)
@@ -18,6 +20,13 @@ def total_conv(imagen,filtro,nombre,verbose=False):
     plt.imshow(res, cmap='gray')
     plt.title("Output " +nombre+ " Convolution")
     plt.show()
+
+    gradient_magnitude = np.sqrt(np.square(res))
+
+    if verbose:
+        plt.imshow(gradient_magnitude, cmap='gray')
+        plt.title("Gradient Magnitude ("+nombre+")")
+        plt.show()
 
     return res
 
@@ -61,5 +70,6 @@ if __name__ == '__main__':
     args = vars(ap.parse_args())
     image = cv2.imread(args["image"])
 
-    print(total_conv(image,filtro_laplacian,"Laplacian",verbose=True))
-    print(total_conv(image,filtro_sobel,"Sobel",verbose=True))
+    imagenLaplacian = total_conv(image,filtro_laplacian,"Laplacian",verbose=True)
+    imagenSobelH =total_conv(image,filtro_sobel,"Sobel Horizontal",verbose=True)
+    imagenSobelV =total_conv(image,np.flip(filtro_sobel.T, axis=0),"Sobel Vertical",verbose=True)
