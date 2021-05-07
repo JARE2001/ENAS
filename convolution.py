@@ -64,6 +64,8 @@ filtro_laplacian = np.array([[0,-1,0],[-1,4,-1],[0,-1,0]])
 
 filtro_sobel = np.array([[-1,-2,-1],[0,0,0],[1,2,1]])
 
+filtro_gaussian = np.array([[0,0,0,5,0,0,0],[0,5,18,32,18,5,0],[0,18,64,100,64,18,0],[5,32,100,100,100,32,5],[0,18,64,100,64,18,0],[0,5,18,32,18,5,0],[0,0,0,5,0,0,0]])
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument("-i", "--image", required=True, help="Path to the image")
@@ -73,3 +75,4 @@ if __name__ == '__main__':
     imagenLaplacian = total_conv(image,filtro_laplacian,"Laplacian",verbose=True)
     imagenSobelH =total_conv(image,filtro_sobel,"Sobel Horizontal",verbose=True)
     imagenSobelV =total_conv(image,np.flip(filtro_sobel.T, axis=0),"Sobel Vertical",verbose=True)
+    imagenGaussianBlur = total_conv(image, filtro_gaussian,"Gaussian Blur",verbose=True)
