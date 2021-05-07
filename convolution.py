@@ -87,3 +87,11 @@ if __name__ == '__main__':
     imagenSobelH =total_conv(image,filtro_sobel,"Sobel Horizontal",verbose=True)
     imagenSobelV =total_conv(image,np.flip(filtro_sobel.T, axis=0),"Sobel Vertical",verbose=True)
     imagenGaussianBlur = total_conv(image, filtro_gaussian,"Gaussian Blur",verbose=True)
+
+    gradient_magnitude = np.sqrt(np.square(imagenLaplacian)+np.square(imagenSobelH)+np.square(imagenSobelV))
+    #+np.square(imagenGaussianBlur)
+
+    # Grafica la imagen con todos los fitros combinados y magnitud gradiente
+    plt.imshow(gradient_magnitude, cmap='gray')
+    plt.title("Gradient Magnitude Total")
+    plt.show()
