@@ -8,14 +8,14 @@ import argparse
 def total_conv(imagen,filtro,nombre,verbose=False):
     imagen = addpadding(imagen,filtro,verbose) # Se le agrega padding a la imagen
     print(imagen)
-    x=len(imagen)- len(filtro)+1
-    y=len(imagen[0])- len(filtro)+1
+    x=len(imagen) - len(filtro)+1
+    y=len(imagen[0]) - len(filtro)+1
     res = np.zeros((x,y))
 
     # Operacion para la convulsion
     for i in range(x):
         for j in range(y):
-            res[i][j] = np.sum(filtro * imagen[i: i+len(filtro), j: j+len(filtro[0])])
+            res[i][j] = np.sum(filtro * imagen[i : i+len(filtro), j : j+len(filtro[0])])
 
     # Grafica la imagen con el filtro
     plt.imshow(res, cmap='gray')
@@ -45,8 +45,8 @@ def addpadding(imagen, kernel, verbose=False):
     x_kernel, y_kernel = kernel.shape
 
     # Se calcula el tamaño del padding de la imagen
-    pad_x = int((x_kernel-1)/2)
-    pad_y = int((y_kernel-1)/2)
+    pad_x = int((x_kernel-1) / 2)
+    pad_y = int((y_kernel-1) / 2)
     
     # Define el tamaño de la matriz que tendrá la imagen con padding
     x = len(imagen) + pad_x*2
@@ -68,13 +68,13 @@ def addpadding(imagen, kernel, verbose=False):
     return imagenPadding
 
 # Filtro para agregar un filtro de Laplacian
-filtro_laplacian = np.array([[0,-1,0],[-1,4,-1],[0,-1,0]])
+filtro_laplacian = np.array([[0,-1,0], [-1,4,-1], [0,-1,0]])
 
 # Filtro para agrefar un filtro de Sobel
-filtro_sobel = np.array([[-1,-2,-1],[0,0,0],[1,2,1]])
+filtro_sobel = np.array([[-1,-2,-1], [0,0,0], [1,2,1]])
 
 # Filtro para agrefar un filtro de Gaussian Blur
-filtro_gaussian = np.array([[0,0,0,5,0,0,0],[0,5,18,32,18,5,0],[0,18,64,100,64,18,0],[5,32,100,100,100,32,5],[0,18,64,100,64,18,0],[0,5,18,32,18,5,0],[0,0,0,5,0,0,0]])
+filtro_gaussian = np.array([[0,0,0,5,0,0,0], [0,5,18,32,18,5,0], [0,18,64,100,64,18,0], [5,32,100,100,100,32,5], [0,18,64,100,64,18,0], [0,5,18,32,18,5,0], [0,0,0,5,0,0,0]])
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
