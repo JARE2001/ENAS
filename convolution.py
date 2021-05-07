@@ -5,7 +5,7 @@ import random
 import cv2
 import argparse
 
-def total_conv(imagen,filtro,verbose=False):
+def total_conv(imagen,filtro,nombre,verbose=False):
     imagen = addpadding(imagen,filtro,verbose)
     print(imagen)
     x=len(imagen)- len(filtro)+1
@@ -16,7 +16,7 @@ def total_conv(imagen,filtro,verbose=False):
         for j in range(y):
             res[i][j] = np.sum(filtro * imagen[i: i+len(filtro), j: j+len(filtro[0])])
     plt.imshow(res, cmap='gray')
-    plt.title("Output Laplacian Convolution")
+    plt.title("Output " +nombre+ " Convolution")
     plt.show()
 
     return res
@@ -53,10 +53,13 @@ def addpadding(imagen, kernel, verbose=False):
 
 filtro_laplacian = np.array([[0,-1,0],[-1,4,-1],[0,-1,0]])
 
+filtro_sobel = np.array([[-1,-2,-1],[0,0,0],[1,2,1]])
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument("-i", "--image", required=True, help="Path to the image")
     args = vars(ap.parse_args())
     image = cv2.imread(args["image"])
 
-print(total_conv(image,filtro_laplacian,verbose=True))
+    print(total_conv(image,filtro_laplacian,"Laplacian",verbose=True))
+    print(total_conv(image,filtro_sobel,"Sobel",verbose=True))
