@@ -82,11 +82,12 @@ if __name__ == '__main__':
     args = vars(ap.parse_args())
     image = cv2.imread(args["image"])
 
+    # Convulsion de la imagen  aplicando un blur para deshacernos del ruido en la imagen
+    image = total_conv(image, filtro_gaussian,"Gaussian Blur",verbose=True)
     # Convulsion de la imagen con cada filtro
     imagenLaplacian = total_conv(image,filtro_laplacian,"Laplacian",verbose=True)
     imagenSobelH =total_conv(image,filtro_sobel,"Sobel Horizontal",verbose=True)
     imagenSobelV =total_conv(image,np.flip(filtro_sobel.T, axis=0),"Sobel Vertical",verbose=True)
-    imagenGaussianBlur = total_conv(image, filtro_gaussian,"Gaussian Blur",verbose=True)
 
     gradient_magnitude = np.sqrt(np.square(imagenLaplacian)+np.square(imagenSobelH)+np.square(imagenSobelV))
     #+np.square(imagenGaussianBlur)
